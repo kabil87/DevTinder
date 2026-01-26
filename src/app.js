@@ -1,23 +1,39 @@
 const express = require('express');
-const { adminAuth } = require('./Middleware/auth');
-
 const app = express();
-
-app.use("/admin",adminAuth)
-
- app.get("/user",(req,res)=>{
-    res.send("Here is your user")
- })
-
-app.get("/admin/getAllData",(req,res)=>{
-    res.send("All Data...")
-});
-
-app.get("/admin/deleteData",(req,res)=>{
-    res.send("Deleted All the Data...")
-});
+const connectDb = require('./Config/database');
+const User = require("./Model/user");
 
 
-app.listen(3000,()=>{
-    console.log("Server is Listening on Port 3000...");  
-});
+app.post("/signup",async (req,res) => {
+
+    const userObj = {
+        firstName : "kapil",
+        lastName : "desh",
+        emailId : "kapil@gmail.com",
+        password : "12345"
+    }
+
+    const user = new User(userObj);
+
+    try {
+
+        await user.save();
+        res.status(201).send("user successfully added");
+    } 
+    catch(err){
+        res.status(400).send(err.message);
+    }
+
+   
+
+} )
+
+connectDb()
+.then(() => {
+    console.log("DataBase connection Established...");
+    app.listen(7777,()=>{
+    console.log("Server is Listening on Port 7777...");  
+})})
+.catch((err) => console.log("Database can not be Established..."))
+
+
