@@ -3,6 +3,7 @@
  function validation  (req)  {
 
     const {firstName, emailId, password} = req.body;
+    
 
     if (! firstName){
         throw new Error("firstName is required")
