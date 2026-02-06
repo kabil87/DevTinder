@@ -19,6 +19,24 @@
     }
  }
 
+ function validateFields(req) {
+
+    const allowedUpdateFields = [
+        "firstName",
+        "lastName",
+        "age",
+        "gender",
+        "description",
+        "photoUrl",
+        "skills"
+    ]
+
+        const isUpdateValid = Object.keys(req.body).every(field => allowedUpdateFields.includes(field));
+        return isUpdateValid;
+
+ }
+
  module.exports = {
-    validation
+    validation,
+    validateFields
  }
