@@ -67,7 +67,7 @@ const userSchema = new mongoose.Schema({
 
     photoUrl : {
         type : String,
-        default  : "https://plus.unsplash.com/premium_vector-1683140924463-adba1c428d66?q=80&w=580&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        default  : "https://www.kindpng.com/picc/m/252-2524695_dummy-profile-image-jpg-hd-png-download.png"
     }
 },{timestamps : true});
 
