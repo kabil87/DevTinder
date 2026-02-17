@@ -4,6 +4,7 @@ const { validateFields } = require("../utils/validation");
 const validator = require("validator")
 const profileRouter = express.Router();
 const bcrypt = require("bcrypt")
+const cors = require("cors");
 
 profileRouter.get("/profile/view", userAuth, async (req,res)=> {
 
@@ -16,9 +17,9 @@ profileRouter.get("/profile/view", userAuth, async (req,res)=> {
     catch(err){
         res.status(401).send("Please login to access profile")
     }
-})
+});
 
-profileRouter.patch("/profile/update", userAuth, async (req,res) => {
+profileRouter.put("/profile/update", userAuth, async (req,res) => {
 
     try {
 
@@ -28,7 +29,7 @@ profileRouter.patch("/profile/update", userAuth, async (req,res) => {
 
     const loggedInUser = req.user;
 
-     Object.keys(req.body).forEach(key => loggedInUser[key] = req.body[key])
+     Object.keys(req.body).forEach(key => loggedInUser[key] = req.body[key]);
     await loggedInUser.save();
 
     res.json({

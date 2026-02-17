@@ -5,11 +5,12 @@ const User = require("../Model/user");
 const userAuth = async(req,res,next)=>{
 
     try {
+        
 
         const {token} = req.cookies;
 
     if (! token){
-        return res.status(401).send("Token is Not Valid");
+        return res.status(401).send("Please Log in");
     }
 
     const decoded = jwt.verify(token,"DEV@Tinder$87");
@@ -20,7 +21,7 @@ const userAuth = async(req,res,next)=>{
         return res.status(400).send("User Not Found");
     }
     else {
-        req.user = user;
+          req.user = user;
         next();
     }
 
