@@ -5,19 +5,31 @@ const validator = require("validator")
 const profileRouter = express.Router();
 const bcrypt = require("bcrypt")
 const cors = require("cors");
+const User = require("../Model/user");
 
 profileRouter.get("/profile/view", userAuth, async (req,res)=> {
 
     try{    
 
         const user = req.user;
-        res.send(user)
+        res.send(user);
     
     }
     catch(err){
         res.status(401).send("Please login to access profile")
     }
 });
+
+profileRouter.get("/profile/:targetUserId", userAuth, async(req,res)=>{
+
+    const {targetUserId} = req.params;
+
+    const user = await User.findOne({_id : targetUserId});
+    if(!user){
+        res.send("User Not Found")
+    }
+    res.json({message : "Here it is",data : user});
+})
 
 profileRouter.put("/profile/update", userAuth, async (req,res) => {
 
@@ -26,7 +38,7 @@ profileRouter.put("/profile/update", userAuth, async (req,res) => {
         if(!validateFields(req)){
         throw new Error("cannot Update");
     }
-
+``
     const loggedInUser = req.user;
 
      Object.keys(req.body).forEach(key => loggedInUser[key] = req.body[key]);
