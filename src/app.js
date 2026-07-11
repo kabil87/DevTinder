@@ -38,4 +38,5 @@ connectDb()
     console.log("Server is Listening on Port 7777...");
   });
 })
-.catch(() => console.log("Database can not be Established..."));
+.catch(
+  (err) => console.log("Database can not be Established...",err));
